@@ -1,48 +1,35 @@
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { NavLink } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle.jsx';
 
-const ROLE_LABELS = {
-  citizen: 'Citizen',
-  field_worker: 'Field Worker',
-  operator: 'Operator',
-  admin: 'Admin'
-};
+const linkClasses = ({ isActive }) =>
+  `font-display text-sm font-semibold transition ${
+    isActive ? 'text-primary' : 'text-ink/70 hover:text-ink'
+  }`;
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
   return (
-    <header className="navbar">
-      <div className="navbar-brand">
-        <span className="navbar-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 16" width="32" height="14">
-            <path
-              d="M0 8 Q5 0 10 8 T20 8 T30 8 T40 8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </span>
-        <span className="navbar-title">AquaSync</span>
-      </div>
+    <header className="sticky top-0 z-10 border-b border-line bg-surface/95 backdrop-blur">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+        <NavLink to="/" className="font-display text-lg font-extrabold text-ink">
+          AquaSync
+        </NavLink>
 
-      {user && (
-        <div className="navbar-user">
-          <span className={`role-badge role-${user.role}`}>{ROLE_LABELS[user.role] ?? user.role}</span>
-          <span className="navbar-name">{user.name}</span>
-          <button className="btn btn-ghost" onClick={handleLogout}>
-            Log out
-          </button>
+        <div className="flex items-center gap-5">
+          <NavLink to="/" end className={linkClasses}>
+            Report
+          </NavLink>
+          <NavLink to="/track" className={linkClasses}>
+            Track
+          </NavLink>
+          <NavLink to="/helplines" className={linkClasses}>
+            Emergency Helplines
+          </NavLink>
+          <NavLink to="/staff/login" className={linkClasses}>
+            Staff
+          </NavLink>
+          <ThemeToggle />
         </div>
-      )}
+      </nav>
     </header>
   );
 }
