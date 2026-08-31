@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Theme tokens.
+
+  Naming note: the `-dark` variants are used throughout the app as *emphasis
+  text* (text-primary-dark, text-danger-dark). In the dark theme that role
+  inverts — emphasis text has to be lighter than the base, not darker. So the
+  variable names describe the ROLE, not the literal lightness. Don't "fix" the
+  dark block by making these darker; you'll wreck the contrast.
+*/
+@layer base {
+  :root {
+    --c-ink: 11 37 48;
+    --c-surface: 239 245 244;
+    --c-card: 255 255 255;
+    --c-line: 199 214 211;
+    --c-on-primary: 255 255 255;
+
+    --c-primary: 14 110 110;
+    --c-primary-dark: 9 79 79;
+    --c-primary-light: 63 156 156;
+
+    --c-accent: 232 163 61;
+    /* Darkened from the original #C4831F, which only hit 3.2:1 as body text on
+       white. This clears 4.5:1 while staying the same amber. The button FILL
+       still uses --c-accent, so the urgent CTA is visually unchanged. */
+    --c-accent-dark: 154 100 16;
+
+    --c-danger: 194 68 68;
+    --c-danger-dark: 158 53 53;
+
+    color-scheme: light;
+  }
+
+  .dark {
+    /* Night dispatch: deep teal-black, never pure #000 — a control room at 3am,
+       not a terminal. Amber stays untouched because it's the one colour that
+       reads identically in both themes, which is what you want on the urgent CTA. */
+    --c-ink: 217 232 230;
+    --c-surface: 6 23 30;
+    --c-card: 12 40 49;
+    --c-line: 30 69 81;
+    --c-on-primary: 4 22 28;
+
+    --c-primary: 53 168 165;
+    --c-primary-dark: 95 200 196;
+    --c-primary-light: 127 214 210;
+
+    --c-accent: 232 163 61;
+    --c-accent-dark: 242 190 110;
+
+    --c-danger: 217 96 96;
+    --c-danger-dark: 240 146 146;
+
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Only the colour swap animates, so switching themes doesn't feel like a
+     page reload. Layout properties are deliberately excluded. */
+  body,
+  body * {
+    transition: background-color 180ms ease, border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  *:focus-visible {
+    outline: 2px solid rgb(var(--c-accent) / 1);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    body,
+    body * {
+      transition: none !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-primary px-5 py-3 font-display font-bold text-onprimary transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-xl bg-accent px-6 py-4 font-display text-lg font-extrabold text-[rgb(11_37_48)] transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-lg border border-line bg-transparent px-5 py-3 font-display font-semibold text-ink transition hover:bg-card;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-line bg-card px-4 py-3 text-ink placeholder:text-ink/40 focus:border-primary focus:outline-none;
+  }
+  .field-label {
+    @apply mb-1.5 block font-display text-sm font-semibold text-ink/80;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-card p-6 shadow-sm;
+  }
+  .ref-code {
+    @apply font-mono tracking-wider;
+  }
+}
