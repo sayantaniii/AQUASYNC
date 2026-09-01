@@ -24,3 +24,41 @@ INSERT INTO roles (name) VALUES
     ('operator'),
     ('admin')
 ON CONFLICT (name) DO NOTHING;
+CREATE TABLE IF NOT EXISTS incidents (
+  id SERIAL PRIMARY KEY,
+  reference_code VARCHAR(12) UNIQUE NOT NULL,
+  issue_type VARCHAR(100) NOT NULL,
+  location TEXT NOT NULL,
+  description TEXT,
+  severity VARCHAR(20) NOT NULL DEFAULT 'medium',      -- low | medium | high | critical
+  contact_phone VARCHAR(20),
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION,
+  status VARCHAR(20) NOT NULL DEFAULT 'open',           -- open | assigned | in_progress | resolved
+  assigned_to INTEGER REFERENCES users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_incidents_reference_code ON incidents(reference_code);
+CREATE INDEX IF NOT EXISTS idx_incidents_status ON incidents(status);
+CREATE INDEX IF NOT EXISTS idx_incidents_assigned_to ON incidents(assigned_to);
+CREATE TABLE IF NOT EXISTS incidents (
+  id SERIAL PRIMARY KEY,
+  reference_code VARCHAR(12) UNIQUE NOT NULL,
+  issue_type VARCHAR(100) NOT NULL,
+  location TEXT NOT NULL,
+  description TEXT,
+  severity VARCHAR(20) NOT NULL DEFAULT 'medium',
+  contact_phone VARCHAR(20),
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION,
+  status VARCHAR(20) NOT NULL DEFAULT 'open',
+  assigned_to INTEGER REFERENCES users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_incidents_reference_code ON incidents(reference_code);
+CREATE INDEX IF NOT EXISTS idx_incidents_status ON incidents(status);
+CREATE INDEX IF NOT EXISTS idx_incidents_assigned_to ON incidents(assigned_to);
