@@ -52,10 +52,10 @@ export default function ReportIncident() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
-    if (!form.issueType || !form.location.trim()) {
-      setError('Pick an issue type and add a location so a crew can find it.');
-      return;
-    }
+   if (!form.issueType || (!form.location.trim() && !coords)) {
+  setError('Pick an issue type and add a location so a crew can find it.');
+  return;
+}
     setSubmitting(true);
     try {
       // Public endpoint — no auth header is attached for this request.
