@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd aquasync-frontend && npm install && npm run build",
+  "outputDirectory": "aquasync-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
