@@ -176,23 +176,23 @@ aquasync/
 
 ## Features
 
-**Implemented:**
-- ✅ Public, no-login incident report form
-- ✅ Public status tracking by reference code
-- ✅ Role-based staff auth (JWT + RBAC: field_worker / operator / admin)
-- ✅ Protected dashboard routing per role
-- ✅ Light/dark theme, persisted across sessions, respects system preference on first visit
-- ✅ Emergency Helplines page — national numbers (Police, Fire, Ambulance, Women's/Child helplines, Disaster Management, Cyber Crime) + geolocation-based "find nearest hospital/pharmacy/police station" via Google Maps
+**Implemented in AquaSync 2.0:**
+- ✅ Public, no-login incident report form with interactive map pin dropper & GPS
+- ✅ Citizen photo/evidence uploads with instant preview and full lightbox inspect
+- ✅ Public status tracking by reference code with 4-stage visual progress pipeline
+- ✅ Interactive GIS Infrastructure Map with OpenStreetMap toggle & Hotspot Density clustering
+- ✅ Real-time live synchronization via Server-Sent Events (SSE) for instantaneous dispatch notifications
+- ✅ IoT Water Telemetry Simulation network (Pressure, Flow Rate, and Turbidity gauges)
+- ✅ Predictive Anomaly Injection (burst pipe and contamination automated alert generation)
+- ✅ Executive Admin Analytics dashboard with responsive SVG issue/severity distribution charts
+- ✅ Role-based staff auth (JWT + RBAC: field_worker / operator / admin) & staff provisioning
+- ✅ Zero-setup fallback mode with seeded demo data & instant local execution (no Postgres prerequisite required)
+- ✅ Emergency Helplines page with geolocation hospital/pharmacy/police locator
 
-**Roadmap:**
-- ⬜ `incidents` table + full CRUD API (reports currently have nowhere to persist)
-- ⬜ Admin analytics dashboard (active/resolved counts, avg response time)
-- ⬜ SMS/email notifications on status change
-- ⬜ Sensor simulation layer (`sensors`, `sensor_readings` tables)
-- ⬜ Interactive city risk map
-- ⬜ Rule-based or ML risk prediction
-- ⬜ Citizen photo uploads for incident reports
-- ⬜ Incident history / recurring-problem-area analytics
+**Staff Demo Credentials (Zero-Setup Mode):**
+- **Admin**: `admin@aquasync.org` / `admin12345`
+- **Dispatcher/Operator**: `operator@aquasync.org` / `operator12345`
+- **Field Worker**: `field@aquasync.org` / `field12345` or `sarah.field@aquasync.org` / `field12345`
 
 ---
 

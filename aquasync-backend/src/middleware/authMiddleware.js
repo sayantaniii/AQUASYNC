@@ -11,7 +11,8 @@ function requireAuth(req, res, next) {
   const token = header.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const jwtSecret = process.env.JWT_SECRET || 'aquasync-dev-secret-key-super-secure-change-in-production';
+    const decoded = jwt.verify(token, jwtSecret);
     req.user = decoded; // { id, role, email }
     next();
   } catch (err) {
